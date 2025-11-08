@@ -158,7 +158,3 @@ To extend this example:
 5. Integrate with databases or data pipelines
 
 ## Resources
-
-- [Microsoft Presidio Documentation](https://microsoft.github.io/presidio/)
-- [Presidio GitHub Repository](https://github.com/microsoft/presidio)
-- [SpaCy Documentation](https://spacy.io/)
