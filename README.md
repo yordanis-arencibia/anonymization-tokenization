@@ -37,8 +37,8 @@ Presidio first analyzes your text to detect sensitive information. Let's see wha
 
 **Original Text:**
 ```
-My name is Yordan Arencibia,
-my email is yordan.arencibia@gmail.com and 
+My name is John Doe,
+my email is john.doe@gmail.com and 
 my phone number is +34 912 345 678. My ID is 12345678Z.
 my computer IP is 10.18.1.1 and my credit card is 4111 1111 1111 1111.
 I was born on 01/01/1985 and my SSN is 232323.
@@ -46,10 +46,10 @@ I was born on 01/01/1985 and my SSN is 232323.
 
 **Detected Entities:**
 ```
-Entity: EMAIL_ADDRESS, Score: 1.00, Start: 58, End: 84, Text: 'yordan.arencibia@gmail.com'
+Entity: EMAIL_ADDRESS, Score: 1.00, Start: 58, End: 84, Text: 'john.doe@gmail.com'
 Entity: CREDIT_CARD, Score: 1.00, Start: 212, End: 231, Text: '4111 1111 1111 1111'
 Entity: IP_ADDRESS, Score: 0.95, Start: 180, End: 189, Text: '10.18.1.1'
-Entity: PERSON, Score: 0.85, Start: 20, End: 36, Text: 'Yordan Arencibia'
+Entity: PERSON, Score: 0.85, Start: 20, End: 36, Text: 'John Doe'
 Entity: PHONE_NUMBER, Score: 0.75, Start: 117, End: 132, Text: '+34 912 345 678'
 Entity: DATE_TIME, Score: 0.60, Start: 255, End: 265, Text: '01/01/1990'
 Entity: US_DRIVER_LICENSE, Score: 0.30, Start: 143, End: 152, Text: '12345678Z'
@@ -69,7 +69,7 @@ Presidio applies different anonymization strategies based on entity type:
 
 **Anonymized Result:**
 ```
-My name is Yordan Arencibia,
+My name is John Doe,
 my email is [HIDDEN_EMAIL] and 
 my phone number is +34 91XXXXXXXXX. My ID is [HIDDEN_DRIVER_LICENSE].
 my computer <ORGANIZATION> is <IP_ADDRESS> and my credit card is 71jWOzL6NWUXXFc-kT4vVXiLgcbo0A6VzW2MTjlEsdMV2o5108McOhV5sJ9ogQLi.
@@ -82,7 +82,7 @@ I was born on <DATE_TIME> and my <ORGANIZATION> is <DATE_TIME>.
 
 **Deanonymized Result:**
 ```
-My name is Yordan Arencibia,
+My name is John Doe,
 my email is [HIDDEN_EMAIL] and 
 my phone number is +34 91XXXXXXXXX. My ID is [HIDDEN_DRIVER_LICENSE].
 my computer <ORGANIZATION> is <IP_ADDRESS> and my credit card is 4111 1111 1111 1111

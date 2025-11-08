@@ -6,8 +6,8 @@ def main():
     
     # --- The Text we want to protect ---
     original_text = """
-        My name is Yordan Arencibia,
-        my email is yordan.arencibia@gmail.com and 
+        My name is John Doe,
+        my email is john.doe@gmail.com and 
         my phone number is +34 912 345 678. My ID is 12345678Z.
         my computer IP is 10.18.1.1 and my credit card is 4111 1111 1111 1111.
         I was born on 01/01/1985 and my SSN is 232323.
