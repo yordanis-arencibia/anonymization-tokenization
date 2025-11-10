@@ -2,7 +2,7 @@
 
 This is an excellent architecture for building a responsible and secure AI agent. Integrating Microsoft Presidio is a crucial step for protecting user privacy (PII) before data reaches OpenAI or is stored in your database.
 
-The key here is that Presidio is a Python library. Since you are in a NestJS (Node.js/TypeScript) environment, the most robust and recommended solution is not to run Python directly from Node, but to treat Presidio as a separate microservice.
+The key here is that Presidio is a Python library. Since you are in a NestJS (Node.js/TypeScript) environment, the most robust and recommended solution is not to run Python directly from Node, but to treat Presidio as a separate microservice (This can also be part of the current agent project).
 
 ### 💡 Key Concept: Presidio as a Microservice
 
