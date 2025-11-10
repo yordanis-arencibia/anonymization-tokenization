@@ -13,11 +13,11 @@ Your architecture will look like this:
 3. **NestJS sends** the message text to a **Presidio Microservice (Python)** that you will create.
 4. **Presidio Service** analyzes, identifies, and anonymizes PII (e.g., "John Doe" -> "<PERSON>").
 5. **Presidio Service** returns the anonymized text to NestJS.
-6. **NestJS** now has two versions: the original text and the anonymized text.
-7. It sends the **anonymized text** to the **OpenAI API**.
-8. It saves the **anonymized text** (or as you decide to handle it) to **PostgreSQL**.
-9. **OpenAI** responds to the anonymized text.
-10. **NestJS** saves the AI response to PostgreSQL and returns it to the user.
+6. **NestJS** now has two versions: the original text and the anonymized text. 
+7. It saves the **anonymized text** (or as you decide to handle it) to **PostgreSQL**.
+8. **NestJS** saves the AI response to PostgreSQL and returns it to the user.
+9. The agent sends the **anonymized text** to the **OpenAI API**.
+10. **OpenAI** responds to the anonymized text.
 
 ### 📋 Steps for Integration
 
@@ -34,15 +34,15 @@ uvicorn
 presidio-analyzer
 presidio-anonymizer
 spacy
-es_core_news_lg  # Spacy model for Spanish (Change if using English)
+en_core_web_lg  # Spacy model for English
 ```
 
 **Spacy Model Installation:**
 ```bash
-python -m spacy download es_core_news_lg
+python -m spacy download en_core_web_lg
 ```
 
-> **Note:** The original request was in Spanish, so this guide uses the Spanish model. If you are processing English, use `en_core_web_lg` instead.
+> **Note:** This guide uses the English language model `en_core_web_lg`. If you need to process other languages, you can download the appropriate spaCy model (e.g., `es_core_news_lg` for Spanish, `fr_core_news_lg` for French, etc.).
 
 **Microservice Code Example (main.py with FastAPI):**
 
@@ -53,9 +53,8 @@ from presidio_analyzer import AnalyzerEngine
 from presidio_anonymizer import AnonymizerEngine
 from presidio_anonymizer.entities import OperatorConfig
 
-# Configuration for Spanish
-# For English, use: AnalyzerEngine(supported_languages=["en"])
-analyzer = AnalyzerEngine(supported_languages=["es"])
+# Configuration for English
+analyzer = AnalyzerEngine(supported_languages=["en"])
 anonymizer = AnonymizerEngine()
 
 app = FastAPI()
@@ -70,8 +69,8 @@ class AnonymizedOut(BaseModel):
 async def anonymize_text(item: TextIn):
     try:
         # 1. Analyze the text for PII
-        # We explicitly use 'es'. For English, use language="en"
-        analyzer_results = analyzer.analyze(text=item.text, language="es")
+        # We explicitly use 'en' for English language processing
+        analyzer_results = analyzer.analyze(text=item.text, language="en")
         
         # 2. Anonymize the text
         # We use <ENTITY> as a placeholder (e.g., <PERSON>, <PHONE_NUMBER>)
@@ -205,9 +204,9 @@ The most important part of your question is how to handle the chat history in Po
 
 Presidio's success depends on it understanding the language.
 
-**Spacy Model:** As you saw in the Python example, we used `es_core_news_lg`. It is essential that the Presidio microservice downloads and uses the correct language model. If you are processing English, you must switch to `en_core_web_lg` or another English model.
+**Spacy Model:** As you saw in the Python example, we used `en_core_web_lg` for English language processing. It is essential that the Presidio microservice downloads and uses the correct language model. For other languages, you would need to switch to the appropriate model (e.g., `es_core_news_lg` for Spanish, `fr_core_news_lg` for French).
 
-**Language Parameter:** When calling `analyzer.analyze(...)`, make sure to pass the correct language (e.g., `language="en"` for English, `language="es"` for Spanish) to force the use of the correct recognizers and improve PII detection accuracy.
+**Language Parameter:** When calling `analyzer.analyze(...)`, make sure to pass the correct language (e.g., `language="en"` for English, `language="es"` for Spanish, `language="fr"` for French) to force the use of the correct recognizers and improve PII detection accuracy.
 
 ---
 
