@@ -9,15 +9,15 @@ The key here is that Presidio is a Python library. Since you are in a NestJS (No
 Your architecture will look like this:
 
 1. **User sends a message.**
-2. **NestJS (Your Agent)** receives the message.
+2. **NestJS (Your Backend)** receives the message.
 3. **NestJS sends** the message text to a **Presidio Microservice (Python)** that you will create.
 4. **Presidio Service** analyzes, identifies, and anonymizes PII (e.g., "John Doe" -> "<PERSON>").
 5. **Presidio Service** returns the anonymized text to NestJS.
 6. **NestJS** now has two versions: the original text and the anonymized text. 
 7. It saves the **anonymized text** (or as you decide to handle it) to **PostgreSQL**.
-8. **NestJS** saves the AI response to PostgreSQL and returns it to the user.
-9. The agent sends the **anonymized text** to the **OpenAI API**.
-10. **OpenAI** responds to the anonymized text.
+8. The agent sends the **anonymized text** to the **OpenAI API**.
+9. **OpenAI** responds to the anonymized text.
+10. **NestJS** saves the AI response to PostgreSQL and returns it to the user.
 
 ### 📋 Steps for Integration
 
