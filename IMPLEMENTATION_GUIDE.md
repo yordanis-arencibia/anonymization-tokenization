@@ -141,14 +141,14 @@ Now, in your main chat service (e.g., `chat.service.ts`), you will use the `Pres
 
 ```typescript
 import { Injectable } from '@nestjs/common';
-import { OpenaiService } from './openai.service'; // Your OpenAI service
+import { AgentService } from './agent.service'; // Your OpenAI service
 import { PresidioService } from './presidio.service'; // Our new service
 import { PrismaService } from './prisma.service'; // Or your TypeORM repository, etc.
 
 @Injectable()
 export class ChatService {
   constructor(
-    private readonly openaiService: OpenaiService,
+    private readonly agentService: AgentService,
     private readonly presidioService: PresidioService,
     private readonly db: PrismaService, // Assuming Prisma for PostgreSQL
   ) {}
@@ -160,9 +160,9 @@ export class ChatService {
       originalMessage,
     );
 
-    // 2. CALL OPENAI
+    // 2. CALL Agent to communicate with OPENAI
     // Use the *anonymized* message for the API call
-    const aiResponse = await this.openaiService.getChatCompletion(
+    const aiResponse = await this.agentService.getChatCompletion(
       anonymizedMessage,
       // ...you can include chat history (also anonymized)
     );
